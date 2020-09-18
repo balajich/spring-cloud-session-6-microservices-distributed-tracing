@@ -8,8 +8,8 @@ Vagrant.configure(2) do |config|
     dtdockerserver.vm.box = "centos/7"
     dtdockerserver.vm.hostname = "dtdockerserver.eduami.org"
     dtdockerserver.vm.network "private_network", ip: "192.168.50.25"
-    dtdockerserver.vm.network "forwarded_port", guest: 8080, host: 8080
-    dtdockerserver.vm.network "forwarded_port", guest: 8761, host: 8761
+    #dtdockerserver.vm.network "forwarded_port", guest: 8080, host: 8080
+    #dtdockerserver.vm.network "forwarded_port", guest: 8761, host: 8761
     dtdockerserver.vm.network "forwarded_port", guest: 5672, host: 5672
     dtdockerserver.vm.network "forwarded_port", guest: 15672, host: 15672
     dtdockerserver.vm.network "forwarded_port", guest: 9411, host: 9411

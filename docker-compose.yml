@@ -1,46 +1,6 @@
 version: '2.1'
 
 services:
-#  registry:
-#    build: registry
-#    mem_limit: 350m
-#    ports:
-#      - 8761:8761
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#  employee-api:
-#    build: employee-api
-#    mem_limit: 350m
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#  payroll-api:
-#    build: payroll-api
-#    mem_limit: 350m
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#  report-api:
-#    build: report-api
-#    mem_limit: 350m
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    depends_on:
-#      rabbitmq:
-#        condition: service_healthy
-#  mail-client:
-#    build: mail-client
-#    mem_limit: 350m
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    depends_on:
-#      rabbitmq:
-#        condition: service_healthy
-#  gateway:
-#    build: gateway
-#    mem_limit: 350m
-#    ports:
-#      - 8080:8080
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
   zipkin:
     image: openzipkin/zipkin:2.12.9
     mem_limit: 512m

@@ -1,0 +1,11 @@
+Host dockerserver
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile C:/Users/balaj/IdeaProjects/spring-cloud-session-6-microservices-deployment-docker/.vagrant/machines/dockerserver/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+

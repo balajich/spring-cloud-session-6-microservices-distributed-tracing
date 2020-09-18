@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: queue.email
+          binder: local_rabbit
+          group: emailconsumers
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: rabbitmq
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /

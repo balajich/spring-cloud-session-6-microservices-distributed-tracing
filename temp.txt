@@ -1,0 +1,2 @@
+vagrant scp ./ dtdockerserver:/vagrant
+vagrant scp ./docker-compose.yml dtdockerserver:/vagrant/docker-compose.yml

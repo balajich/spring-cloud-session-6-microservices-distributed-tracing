@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  zipkin:
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      probability:  1.0
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: queue.email
+          binder: local_rabbit
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: rabbitmq
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/

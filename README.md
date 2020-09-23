@@ -1,18 +1,23 @@
-# Spring Cloud Session 4 Inter Microservice Communication ASynchronous using RabbitMQ
-In  this tutorial we are going to learn how microservices communicate with each other in asynchronous fashion. In asynchronous 
-communication calling microservice will **not wait** till the called microservice responds. This pattern can be achieved 
-with message bus infrastructures like Kafka or RabbitMQ.Here we use **Spring Cloud Stream** framework to communicate 
-with message bus.
+# Spring Cloud Session-7 Microservices distributed Tracing
+In  this tutorial we are going to learn how to trace a message that is going across multiple microservices.In micorservices 
+landscape it is common to have multiple cooperating microservices. It is important for us to understand how the call is 
+flowing across these services.
 
 **Overview**
-- When report-api microservice receives a request to get employee details it is going to fetch details and write results
-to message bus.
-- Mail microservice listens on the bus for employee details and when those details are available on bus. It is going to read
-send SMS and email.  
-- report-api play a role of **Producer**
-- mail-client microservice plays a role of **Consumer**
-- RabbitMQ play a role of mediator or **message bus**
+- When user wants to get employee report the report is served by report-api microservice.
+- browser -> gateway->report-api (report-api synchronous calls employee-api,payroll-api and asynchronusly calls mail-client)
+- Complete(Request and Response) flow: 
+    - browser->gateway-> report-api
+    - report-api(synch)->gateway->employee-api
+    - report-api(synch)->gateway->payroll-api
+    - report-api(asynch)-> RabittMQ (MessageBus)
+    - response is served to browser             
+- The above request flow is really complex, and it is really tough to understand if there is intermediately failure or slowness.
+- We will be using **Spring Cloud Sleuth** and **Zipkin** to trace the call flow.
 
+**Terminoloy**
+- Trace or Trace tree: The complete request flow is called trace or trace tree
+- Span: The basic unit of work are called Span. Spans can consist of sub spans forming the trace tree.
 **Flow**
 - Run RabbitMQ server, it binds to port 5672 and admin ui application to port 15672.
 - Run registry service on 8761. 

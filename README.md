@@ -15,10 +15,16 @@ flowing across these services.
 - The above request flow is really complex, and it is really tough to understand if there is intermediately failure or slowness.
 - We will be using **Spring Cloud Sleuth** and **Zipkin** to trace the call flow.
 
-**Terminoloy**
+**Terminology**
 - Trace or Trace tree: The complete request flow is called trace or trace tree
 - Span: The basic unit of work are called Span. Spans can consist of sub spans forming the trace tree.
 **Flow**
+- Each and every microservice (gateway,employee-api,payroll-api,report-api,mail-client,registry) has sleuth and zipkin components
+- When a request to comes to microservice sleuth adds traceid and zipkin clients send this traceid to MessageBus (RabbitMQ)
+- traceids are saved in zipkin queue in RabbitMQ
+- Zipkin server reads this trace information for queue and computes the callflow.
+- Zipkin UI can be used to view call trace
+
 - Run RabbitMQ server, it binds to port 5672 and admin ui application to port 15672.
 - Run registry service on 8761. 
 - Run employee-api service on dynamic port. Where it takes employee id and returns employee name.
@@ -191,5 +197,5 @@ application:
 using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
 - https://www.cloudamqp.com/blog/2017-07-25-RabbitMQ-and-AMQP-concepts-glossary.html 
 # Next Tutorial
-We will learn how to use kafka as message bus
-- https://github.com/balajich/spring-cloud-session-4-inter-microservice-communication-async-kafka
+How to deploy microservices using docker
+- https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker

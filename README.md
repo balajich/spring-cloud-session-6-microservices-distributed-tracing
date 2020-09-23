@@ -74,6 +74,8 @@ Spring cloud stream abstracts underneath communication  with Messagebus. This he
 - https://youtu.be/8CV8PDX8Kuc
 # Architecture
 ![architecture](architecture.png "architecture")
+# Zipkin
+![zipkinui](zipkinui.png "zipkinui")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above

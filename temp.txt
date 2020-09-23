@@ -1,2 +1,3 @@
 vagrant scp ./ dtdockerserver:/vagrant
 vagrant scp ./docker-compose.yml dtdockerserver:/vagrant/docker-compose.yml
+docker-compose up -d --scale zipkin=1

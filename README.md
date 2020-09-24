@@ -39,7 +39,7 @@ flowing across these services.
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
-- Vagrant, Virtualbox (To run RabbitMQ Server)
+- Vagrant, Virtualbox (To run RabbitMQ Server, Zapkin)
 # Start RabbitMQ, Zipkin Servers and Build Microservices
 We will be running RabbitMQ,Zipkin server inside a docker container. I am running docker container on CentOS7 virtual machine. 
 I will be using vagrant to stop or start a virtual machine.
@@ -74,87 +74,37 @@ at  spring-cloud-session-7-microservices-distributed-tracing.postman_collection.
 - Get employee report using report api ( direct): ``` curl -s -L  http://localhost:8080/report-api/100 ```
  
 # Code
-In this section will focus only on report-api code which publishes employee details to queue **queue.email** 
-
-*ReportController* in app **report-api**.  @SendTo(Processor.OUTPUT) makes the function to invoke RabbitMQ and writes
-details to MQ.
-```java
-    @SendTo(Processor.OUTPUT)
-    public Employee getEmployeeDetails(@PathVariable int employeeId) {
-       
-        Employee finalEmployee = new Employee(responseEmployeeNameDetails.getId(), responseEmployeeNameDetails.getName(), responseEmployeePayDetails.getSalary());
-        // Send to message bus
-        processor.output().send(MessageBuilder.withPayload(finalEmployee).build());
-       
-    }
+In this section we will focus only employee-api and add sleuth and zipkin as dependency. This will automatically enable
+employee-api to write trace information to zipkin queue in RabbitMQ
+**pom.xml**
+```xml
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-sleuth</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-zipkin</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+         </dependency>
 ```
-**application.yml** in report-api. 
+**application.yml** in employee-api.  Asking zipkin to use RabbitMQ as messagebus and Sleuth to send every trace informatikon
+by default Sleuth will send olny 10% of trace information
 ```yaml
- cloud:
-    stream:
-      bindings:
-        output:
-          destination: queue.email
-          binder: local_rabbit
-      binders:
-        local_rabbit:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: localhost
-                port: 5672
-                username: guest
-                password: guest
-                virtual-host: /
-```
-mail-client code that reads messages from queue. @StreamListener(Processor.INPUT) reads data from queue **email.queue**
-```java
-@SpringBootApplication
-@EnableBinding(Processor.class)
-public class MailClientApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(MailClientApplication.class, args);
-    }
-
-    @StreamListener(Processor.INPUT)
-    public void receivedEmail(Employee employee) {
-        System.out.println("Received employee details: " + employee);
-        System.out.println("Sending email and sms: "+employee.getName());
-    }
-
-}
-```
-**application.yml** of mail-client
-```yaml
-application:
-    name: email-api
-  cloud:
-    stream:
-      bindings:
-        input:
-          destination: queue.email
-          binder: local_rabbit
-          group: emailconsumers
-      binders:
-        local_rabbit:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: localhost
-                port: 5672
-                username: guest
-                password: guest
-                virtual-host: /
+ zipkin:
+     sender:
+       type: rabbit
+   sleuth:
+     sampler:
+       probability:  1.0
 ```
 # References
-- https://www.baeldung.com/spring-cloud-stream
 - Spring Microservices in Action by John Carnell 
 - Hands-On Microservices with Spring Boot and Spring Cloud: Build and deploy Java microservices 
 using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
-- https://www.cloudamqp.com/blog/2017-07-25-RabbitMQ-and-AMQP-concepts-glossary.html 
 # Next Tutorial
 How to deploy microservices using docker
 - https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker

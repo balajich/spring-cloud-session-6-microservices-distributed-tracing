@@ -75,7 +75,9 @@ at  spring-cloud-session-7-microservices-distributed-tracing.postman_collection.
  
 # Code
 In this section we will focus only employee-api and add sleuth and zipkin as dependency. This will automatically enable
-employee-api to write trace information to zipkin queue in RabbitMQ
+employee-api to write trace information to zipkin queue that is present in RabbitMQ Server. Note the configs are same for 
+other microservices.
+
 **pom.xml**
 ```xml
          <dependency>

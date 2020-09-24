@@ -1,4 +1,5 @@
 vagrant scp ./ dtdockerserver:/vagrant
-vagrant scp ./docker-compose.yml dtdockerserver:/vagrant/docker-compose.yml
-vagrant scp ./build.sh dtdockerserver:/vagrant/build.sh
+vagrant scp  docker-compose.yml dtdockerserver:/vagrant/docker-compose.yml
+vagrant scp  build.sh dtdockerserver:/vagrant/build.sh
+vagrant scp  test.sh dtdockerserver:/vagrant
 docker-compose up -d --scale zipkin=1

@@ -88,3 +88,8 @@ yum install -y wget
 # install unzip
 echo "[TASK 15] Install unzip"
 yum install -y unzip
+
+# install dos2unix
+echo "[TASK 16] Install dos2unix"
+yum install -y dos2unix
+

@@ -7,7 +7,7 @@
 
     <!-- parent pom -->
     <groupId>org.eduami.spring</groupId>
-    <artifactId>spring-cloud-session-7-microservices-distributed-tracing</artifactId>
+    <artifactId>spring-cloud-session-6-microservices-distributed-tracing</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <!-- sub modules -->

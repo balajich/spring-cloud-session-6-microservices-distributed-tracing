@@ -1,4 +1,4 @@
-# Spring Cloud Session-7 Microservices Distributed Tracing
+# Spring Cloud Session-6 Microservices Distributed Tracing
 In  this tutorial we are going to learn how to trace a message that is going across multiple microservices.In micorservices 
 landscape it is common to have multiple cooperating microservices. It is important for us to understand how the call is 
 flowing across these services.

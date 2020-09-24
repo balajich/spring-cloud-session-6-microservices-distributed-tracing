@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
     dtdockerserver.vm.provider "virtualbox" do |vb|
       vb.name = "dtdockerserver"
       vb.memory = 4024
-      vb.cpus = 4
+      vb.cpus = 1
     end
   end
 end

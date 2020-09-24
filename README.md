@@ -65,16 +65,12 @@ I will be using vagrant to stop or start a virtual machine.
 
 # Using curl to test environment
 **Note I am running CURL on windows, if you have any issue. Please use postman client, its collection is available 
-at spring-cloud-session-3-inter-microservice-communication-sync.postman_collection.json**
+at  spring-cloud-session-7-microservices-distributed-tracing.postman_collection.json**
 - Access RabbitMQ UI: ```http://localhost:15672/  ```
 - RabbitMQ defaults username/password: ``` guest/guest ```
 - Access Zipkin UI: ``` ```
 - Get employee report using report api ( direct): ``` curl -s -L  http://localhost:8080/report-api/100 ```
-# Scale up
-- **Deprecated**  docker-compose scale employee-api=2
-- **Spin instance**  docker-compose up --scale employee-api=2 -d
-
-  
+ 
 # Code
 In this section will focus only on report-api code which publishes employee details to queue **queue.email** 
 

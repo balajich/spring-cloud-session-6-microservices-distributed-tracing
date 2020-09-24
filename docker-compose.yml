@@ -3,7 +3,7 @@ version: '2.1'
 
 services:
   zipkin:
-    image: openzipkin/zipkin:2.12.9
+    image: openzipkin/zipkin
     mem_limit: 512m
     environment:
       - STORAGE_TYPE=mem

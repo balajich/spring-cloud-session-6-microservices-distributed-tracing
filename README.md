@@ -5,7 +5,7 @@ flowing across these services.
 
 **Overview**
 - When user wants to get employee report the report is served by report-api microservice.
-- browser -> gateway->report-api (report-api synchronous calls employee-api,payroll-api and asynchronusly calls mail-client)
+- Call flow: Browser -> gateway->report-api (report-api synchronous calls employee-api,payroll-api and asynchronusly calls mail-client)
 - Complete(Request and Response) flow: 
     - browser->gateway-> report-api
     - report-api(synch)->gateway->employee-api
@@ -21,82 +21,40 @@ flowing across these services.
 **Flow**
 - Each and every microservice (gateway,employee-api,payroll-api,report-api,mail-client,registry) has sleuth and zipkin components
 - When a request to comes to microservice sleuth adds traceid and zipkin clients send this traceid to MessageBus (RabbitMQ)
-- traceids are saved in zipkin queue in RabbitMQ
-- Zipkin server reads this trace information for queue and computes the callflow.
+- traceids are saved in **zipkin queue** in RabbitMQ
+- Zipkin server reads this trace information from queue and computes the callflow.
 - Zipkin UI can be used to view call trace
-
 - Run RabbitMQ server, it binds to port 5672 and admin ui application to port 15672.
-- Run registry service on 8761. 
-- Run employee-api service on dynamic port. Where it takes employee id and returns employee name.
-- Run payroll-api service on dynamic port. Where it takes employee id and returns employee salary.
-- Run report-api service on dynamic port. Where it takes employee id and returns employee name and salary by 
-directly communicating with employee-api and payroll-api. **It also publishes employee details to message bus**
-- Run mail-client service (it is not a rest api, it a java process and doesnt bind to any port). **Where it subscribes
- to message bus** for employee details message and sends mail,sms.
-- Run Gateway service on 8080 and reverse proxy requests to all the services (employee-api,payroll-api,report-api)
-- All the microservices (employee-api,payroll-api,report-api,gateway) when they startup they register their service endpoint (rest api url)
- with registry
-- Gateway Spring Cloud load balancer (Client side load balancing) component in Spring Cloud Gateway acts as reverse proxy.
-It reads a registry for microservice endpoints and configures routes. 
-
-Important Notes
-- Netflix Eureka Server plays a role of Registry. Registry is a spring boot application with Eureka Server as dependency.
-- Netflix Eureka Client is present in all the micro services (employee-api,payroll-api,report-api,gateway) and they discover Eureka
-server and register their availability with server.
-- Generally Netflix Ribbon Component is used as Client Side load balancer, but it is deprecated project. We will be using
-Spring Cloud Load balaner in gateway 
-# RabbitMQ Terminology
-- **Producer, publisher** A Producer is the application that is sending the messages to the message queue.
-- **Consumer** A Consumer is the application that receives the messages from the message queue.
-- **Message queue**- A message queue is a queue of messages sent between applications. 
-It allow applications to communicate by sending messages to each other.
-- **Exchange** An exchange is responsible for the routing of the messages to the different queues. An exchange accepts 
-messages from the producer application and routes them to message queues with help of header attributes, bindings, 
-and routing keys
-- **Ack** When RabbitMQ delivers a message to a consumer, it needs to know when to consider the message successfully 
-sent. An ack will acknowledge one or more messages, which tells RabbitMQ that a message/messages has been handled
-- **Binding**  A binding is a "link" that you set up to bind a queue to an exchange.
-- **Channel** A channel is a virtual connection inside a connection. When you are publishing or consuming messages 
-from a queue - it's all done over a channel.
-- **Connection**-A connection is a TCP connection between your application, and the RabbitMQ broker
-# Spring Cloud Stream Concepts
-Spring cloud stream abstracts underneath communication  with Messagebus. This helps to foucs on business logic instead of 
- nettigritty of message bus. We can easily switch from RabbitMQ to Kafka etc without code changes.
- - **Bindings** — a collection of interfaces that identify the input and output channels.
-- **Channel** — represents the communication pipe between messaging-middleware and the application.
-- **StreamListeners**- Listens to messages on Input channel and serializes them to java objects.
- 
+- Run Zipkin UI server 9411
 
 # Source Code 
-``` git clone https://github.com/balajich/spring-cloud-session-4-inter-microservice-communication-async.git``` 
+``` git clone https://github.com/balajich/spring-cloud-session-7-microservices-distributed-tracing.git``` 
 # Video
 [![Spring Cloud Session 4 Inter Microservice Communication ASynchronous using RabbitMQ](https://img.youtube.com/vi/8CV8PDX8Kuc/0.jpg)](https://www.youtube.com/watch?v=8CV8PDX8Kuc)
 - https://youtu.be/8CV8PDX8Kuc
 # Architecture
 ![architecture](architecture.png "architecture")
-# Zipkin
-![zipkinui](zipkinui.png "zipkinui")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 - Vagrant, Virtualbox (To run RabbitMQ Server)
-# Start RabbitMQ Server and Build Microservices
-We will be running RabbitMQ server inside a docker container. I am running docker container on CentOS7 virtual machine. 
+# Start RabbitMQ, Zipkin Servers and Build Microservices
+We will be running RabbitMQ,Zipkin server inside a docker container. I am running docker container on CentOS7 virtual machine. 
 I will be using vagrant to stop or start a virtual machine.
-- Build Employee API docker image ```docker build -t product-service``` .
-- View the built employee api docker image ``` docker images | grep employee-api ```
-- Run employee-api in docker image ```docker run --rm -p8080:8080 -e "SPRING_PROFILES_ACTIVE=docker" employee-api```
-- RabbitMQ Server
-    - ``` cd spring-cloud-session-4-inter-microservice-communication-async ```
+- RabbitMQ & Zipkin Server
+    - ``` cd spring-cloud-session-7-microservices-distributed-tracing ```
     - Bring virtual machine up ``` vagrant up ```
     - ssh to virtual machine ```vagrant ssh ```
     - Switch to root user ``` sudo su - ```
     - Change folder where docker-compose files is available ```cd /vagrant```
-    - Start RabbitMQ Server using docker-compose ``` docker-compose up -d ```
+    - Start RabbitMQ & Zipkin Server using docker-compose ``` docker-compose up -d ```
 - Java
+    - ``` cd spring-cloud-session-7-microservices-distributed-tracing ```
     - ``` mvn clean install ```
 # RabbitMQ Server UI
 ![RabbitMQUI](RabbitMQUI.png "RabbitMQUI")
+# Zipkin
+![zipkinui](zipkinui.png "zipkinui")
 # Running components
 - Registry: ``` java -jar .\registry\target\registry-0.0.1-SNAPSHOT.jar ```
 - Employee API: ``` java -jar .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
@@ -110,6 +68,7 @@ I will be using vagrant to stop or start a virtual machine.
 at spring-cloud-session-3-inter-microservice-communication-sync.postman_collection.json**
 - Access RabbitMQ UI: ```http://localhost:15672/  ```
 - RabbitMQ defaults username/password: ``` guest/guest ```
+- Access Zipkin UI: ``` ```
 - Get employee report using report api ( direct): ``` curl -s -L  http://localhost:8080/report-api/100 ```
 # Scale up
 - **Deprecated**  docker-compose scale employee-api=2

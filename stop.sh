@@ -6,5 +6,5 @@ pkill -f java.*report-api-0.0.1-SNAPSHOT.jar
 pkill -f java.*mail-client-0.0.1-SNAPSHOT.jar
 pkill -f java.*gateway-0.0.1-SNAPSHOT.jar
 pkill -f java.*registry-0.0.1-SNAPSHOT.jar
-echo "Stopping docker services"
+echo "Stopping docker services RabbitMQ and Zapkin"
 docker-compose down

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "Start RabbitMQ and Zapkin"
+echo "Start RabbitMQ and Zapkin Servers"
 docker-compose up -d
 sleep 5
 echo "Some time Zapkin doesnt start properly, make sure it is up"

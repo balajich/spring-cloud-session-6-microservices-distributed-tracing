@@ -34,6 +34,7 @@ flowing across these services.
 - https://youtu.be/8CV8PDX8Kuc
 # Architecture
 ![architecture](architecture.png "architecture")
+# Trace, Span
 ![TraceSpan](TraceSpan.png "TraceSpan")
 # Prerequisite
 - JDK 1.8 or above

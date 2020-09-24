@@ -93,8 +93,8 @@ other microservices.
              <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
          </dependency>
 ```
-**application.yml** in employee-api.  Asking zipkin to use RabbitMQ as messagebus and Sleuth to send every trace informatikon
-by default Sleuth will send olny 10% of trace information
+**application.yml** in employee-api.  Asking zipkin to use RabbitMQ as messagebus and Sleuth to send every trace information.
+By default, Sleuth will send only 10% of trace information.
 ```yaml
  zipkin:
      sender:

@@ -28,7 +28,7 @@ flowing across these services.
 - Run Zipkin UI server 9411
 
 # Source Code 
-``` git clone https://github.com/balajich/spring-cloud-session-7-microservices-distributed-tracing.git``` 
+``` git clone https://github.com/balajich/spring-cloud-session-6-microservices-distributed-tracing.git``` 
 # Video
 [![Spring Cloud Session 4 Inter Microservice Communication ASynchronous using RabbitMQ](https://img.youtube.com/vi/8CV8PDX8Kuc/0.jpg)](https://www.youtube.com/watch?v=8CV8PDX8Kuc)
 - https://youtu.be/8CV8PDX8Kuc

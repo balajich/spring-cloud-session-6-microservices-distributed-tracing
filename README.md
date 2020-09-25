@@ -44,14 +44,14 @@ flowing across these services.
 We will be running RabbitMQ,Zipkin server inside a docker container. I am running docker container on CentOS7 virtual machine. 
 I will be using vagrant to stop or start a virtual machine.
 - RabbitMQ & Zipkin Server
-    - ``` cd spring-cloud-session-7-microservices-distributed-tracing ```
+    - ``` cd spring-cloud-session-6-microservices-distributed-tracing ```
     - Bring virtual machine up ``` vagrant up ```
     - ssh to virtual machine ```vagrant ssh ```
     - Switch to root user ``` sudo su - ```
     - Change folder where docker-compose files is available ```cd /vagrant```
     - Start RabbitMQ & Zipkin Server using docker-compose ``` docker-compose up -d ```
 - Java
-    - ``` cd spring-cloud-session-7-microservices-distributed-tracing ```
+    - ``` cd spring-cloud-session-6-microservices-distributed-tracing ```
     - ``` mvn clean install ```
 # RabbitMQ Server UI
 ![RabbitMQUI](RabbitMQUI.png "RabbitMQUI")
@@ -67,7 +67,7 @@ I will be using vagrant to stop or start a virtual machine.
 
 # Using curl to test environment
 **Note I am running CURL on windows, if you have any issue. Please use postman client, its collection is available 
-at  spring-cloud-session-7-microservices-distributed-tracing.postman_collection.json**
+at  spring-cloud-session-6-microservices-distributed-tracing.postman_collection.json**
 - Access RabbitMQ UI: ```http://localhost:15672/  ```
 - RabbitMQ defaults username/password: ``` guest/guest ```
 - Access Zipkin UI: ``` ```

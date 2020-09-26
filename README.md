@@ -30,8 +30,8 @@ flowing across these services.
 # Source Code 
 ``` git clone https://github.com/balajich/spring-cloud-session-6-microservices-distributed-tracing.git``` 
 # Video
-[![Spring Cloud Session 4 Inter Microservice Communication ASynchronous using RabbitMQ](https://img.youtube.com/vi/8CV8PDX8Kuc/0.jpg)](https://www.youtube.com/watch?v=8CV8PDX8Kuc)
-- https://youtu.be/8CV8PDX8Kuc
+[![Spring Cloud Session-6 Microservices Distributed Tracing](https://img.youtube.com/vi/SjsIbTGxh0c/0.jpg)](https://www.youtube.com/watch?v=SjsIbTGxh0c)
+- https://youtu.be/SjsIbTGxh0c
 # Architecture
 ![architecture](architecture.png "architecture")
 # Trace, Span

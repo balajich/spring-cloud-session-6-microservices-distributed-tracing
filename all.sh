@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-echo "stopping existing services"
+echo "stopping all the  services"
 sh stop.sh
 echo "build"
 sh build.sh
-echo "staring existing services"
+echo "staring  services"
 sh start.sh
